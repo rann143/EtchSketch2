@@ -6,6 +6,12 @@ let sqrWidth = contWidth / 16;
 let sqrHeight = contHeight / 16;
 
 
+//When I enter a number. Find the sq. of it
+//and create that many square divs
+
+//create variable that holds value from grid size input
+let gridSize = document.querySelector(".grid-size").value;
+
 for (i = 0; i < 256; i++) {
     //generate new div
     const square = document.createElement('div');
@@ -39,13 +45,3 @@ squares.forEach(item => {
         item.classList.add('color');
     })
 });
-
-
-// square.addEventListener('click', square.classList.toggle('color'));
-
-
-
-// Get container Width (560px)
-// Get container Height (560px)
-
-// Generate div squares to fill the space

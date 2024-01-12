@@ -23,3 +23,7 @@ body {
 .color {
     background-color: lightskyblue;
 }
+
+.grid-generation {
+    margin: 10px;
+}
