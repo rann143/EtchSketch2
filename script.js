@@ -10,7 +10,7 @@ let sqrHeight = contHeight / 16;
 //and create that many square divs
 
 //create variable that holds value from grid size input
-let gridSize = document.querySelector(".grid-size").value;
+const gridSize = document.querySelector("#grid-size").value;
 
 for (i = 0; i < 256; i++) {
     //generate new div
