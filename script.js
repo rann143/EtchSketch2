@@ -5,12 +5,12 @@ let contHeight = container.offsetHeight;
 let sqrWidth = contWidth / 16;
 let sqrHeight = contHeight / 16;
 
+const gridSize = document.querySelector("#grid-size").value;
+
 
 //When I enter a number. Find the sq. of it
 //and create that many square divs
 
-//create variable that holds value from grid size input
-const gridSize = document.querySelector("#grid-size").value;
 
 for (i = 0; i < 256; i++) {
     //generate new div
@@ -36,12 +36,23 @@ for (i = 0; i < 256; i++) {
 
 }
 
-//Create nodelist of each square
+//get all the squares in the grid
 const squares = document.querySelectorAll('div.square');
 
-//add the .color class for each square in the nodelist
+//add the .color class for each square in the nodelist when mouse is hovering
 squares.forEach(item => {
     item.addEventListener('mouseover', event => {
         item.classList.add('color');
     })
 });
+
+// Create variable for clear button
+const clearBtn = document.querySelector('#clear-button');
+
+// Remove '.color' class from all squares if clear button is clicked
+clearBtn.addEventListener('click', () => {
+    squares.forEach(item => {
+        item.classList.remove('color');
+    })
+})
+
