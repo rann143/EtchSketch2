@@ -5,8 +5,7 @@ let contHeight = container.offsetHeight;
 let sqrWidth = contWidth / 16;
 let sqrHeight = contHeight / 16;
 
-const gridSize = document.querySelector("#grid-size").value;
-
+const gridResizeBtn = document.querySelector('#grid-resize');
 
 //When I enter a number. Find the sq. of it
 //and create that many square divs
@@ -56,3 +55,15 @@ clearBtn.addEventListener('click', () => {
     })
 })
 
+//Variable to store grid size
+let gridSize = 0;
+
+//Pop up for grid size when button clicked
+gridResizeBtn.addEventListener('click', () => {
+    gridSize = prompt('Enter your Grid Size:');
+})
+
+function resizeGrid(input) {
+    input = gridSize;
+    
+}
