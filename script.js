@@ -51,10 +51,15 @@ function roundToOneDec(value) {
 //randomize background color for each square in the nodelist when mouse is hovering
 squares.forEach(item => {
     item.addEventListener('mouseover', event => {
-        item.style['background-color'] = `rgb(${randomInteger(255)},\
-         ${randomInteger(255)},\
-         ${randomInteger(255)},\
-         ${roundToOneDec(Math.random())})`;
+        item.style['background-color'] = `hsl(${randomInteger(360)},\
+         ${randomInteger(100)}%,\
+         ${randomInteger(100)}%)`;
+        
+        //OPTIONAL: Use RGBA instead of HSL
+        // `rgb(${randomInteger(255)},\
+        //  ${randomInteger(255)},\
+        //  ${randomInteger(255)},\
+        //  ${roundToOneDec(Math.random())})`;
     })
 });
 
