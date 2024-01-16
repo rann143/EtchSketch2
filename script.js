@@ -61,7 +61,7 @@ let gridSize = 0;
 //GRID RE_SIZING FUNTIONALITY
 //Pop up for grid size when button clicked - change grid size
 gridResizeBtn.addEventListener('click', () => {
-    gridSize = prompt('Enter your Grid Size (Whole Number from 10 to 100):');
+    gridSize = Number(prompt('Enter your Grid Size (Whole Number from 10 to 100):'));
     if (gridSize > 100 || gridSize < 10) {
         alert('Must enter a whole number from 10 to 100');
     } else if (Number.isInteger(gridSize) == false) {
