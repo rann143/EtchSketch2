@@ -7,6 +7,9 @@ let sqrHeight = contHeight / 16;
 
 const gridResizeBtn = document.querySelector('#grid-resize');
 
+function randomInteger(max) {
+    return Math.floor(Math.random() * (max + 1));
+}
 
 // GENERATE INTIAL GRID
 for (i = 0; i < 256; i++) {
@@ -15,14 +18,15 @@ for (i = 0; i < 256; i++) {
 
     //set class of square to '.square'
     square.setAttribute('class', 'square');
+    
 
     //style each div
     square.setAttribute("style", 
-    "border: solid 1px;\
+    `border: solid 1px;\
     border-color: black;\
     padding: 0;\
     margin: 0;\
-    box-sizing: border-box");
+    box-sizing: border-box`);
 
     //set square dimenstions to fill container
     square.style.width = `${sqrWidth}px`;
@@ -36,20 +40,31 @@ for (i = 0; i < 256; i++) {
 //get all the squares in the grid
 const squares = document.querySelectorAll('div.square');
 
-//add the .color class for each square in the nodelist when mouse is hovering
+
+function roundToOneDec(value) {
+  
+    let roundedNumber = Number(value.toFixed(1));
+  
+    return roundedNumber;
+  }
+
+//randomize background color for each square in the nodelist when mouse is hovering
 squares.forEach(item => {
     item.addEventListener('mouseover', event => {
-        item.classList.add('color');
+        item.style['background-color'] = `rgb(${randomInteger(255)},\
+         ${randomInteger(255)},\
+         ${randomInteger(255)},\
+         ${roundToOneDec(Math.random())})`;
     })
 });
 
 // Create variable for clear button
 const clearBtn = document.querySelector('#clear-button');
 
-// Remove '.color' class from all squares if clear button is clicked
+// change background color to white for all squares if clear button is clicked
 clearBtn.addEventListener('click', () => {
     squares.forEach(item => {
-        item.classList.remove('color');
+        item.style['background-color'] = 'white';
     })
 })
 
