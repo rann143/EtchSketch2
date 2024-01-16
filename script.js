@@ -7,10 +7,8 @@ let sqrHeight = contHeight / 16;
 
 const gridResizeBtn = document.querySelector('#grid-resize');
 
-//When I enter a number. Find the sq. of it
-//and create that many square divs
 
-
+// GENERATE INTIAL GRID
 for (i = 0; i < 256; i++) {
     //generate new div
     const square = document.createElement('div');
@@ -54,6 +52,8 @@ clearBtn.addEventListener('click', () => {
         item.classList.remove('color');
     })
 })
+
+//END OF GENERATING INTIAL GRID SECTION. NOW ONTO RESIZING IT:
 
 //Variable to store grid size
 let gridSize = 0;
