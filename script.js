@@ -1,159 +1,89 @@
 const container = document.querySelector(".container");
-
-let contWidth = container.offsetWidth;
-let contHeight = container.offsetHeight;
-let sqrWidth = contWidth / 16;
-let sqrHeight = contHeight / 16;
-
-const gridResizeBtn = document.querySelector('#grid-resize');
-
-function randomInteger(max) {
-    return Math.floor(Math.random() * (max + 1));
-}
+const gridResizeBtn = document.querySelector("#grid-resize");
+const clearBtn = document.querySelector("#clear-button");
 
 // GENERATE INTIAL GRID
-for (i = 0; i < 256; i++) {
+generateGrid(16);
+addResizeFunctionality();
+
+function generateGrid(size) {
+  removeAllChildNodes(container);
+  // input = gridSize;
+  for (let i = 0; i < size; i++) {
     //generate new div
-    const square = document.createElement('div');
+    const row = document.createElement("div");
 
     //set class of square to '.square'
-    square.setAttribute('class', 'square');
-    
+    row.setAttribute("class", "row");
 
-    //style each div
-    square.setAttribute("style", 
-    `border: solid 1px;\
-    border-color: black;\
-    padding: 0;\
-    margin: 0;\
-    box-sizing: border-box`);
+    for (let j = 0; j < size; j++) {
+      //generate new div
+      const square = document.createElement("div");
 
-    //set square dimenstions to fill container
-    square.style.width = `${sqrWidth}px`;
-    square.style.height = `${sqrHeight}px`;
+      //set class of square to '.square'
+      square.setAttribute("class", "square");
+
+      row.appendChild(square);
+    }
 
     //append to container
-    container.appendChild(square);
-
-}
-
-//get all the squares in the grid
-const squares = document.querySelectorAll('div.square');
-
-
-function roundToOneDec(value) {
-  
-    let roundedNumber = Number(value.toFixed(1));
-  
-    return roundedNumber;
+    container.appendChild(row);
   }
 
-//randomize background color for each square in the nodelist when mouse is hovering
-squares.forEach(item => {
-    item.addEventListener('mouseover', event => {
-        item.style['background-color'] = `hsl(${randomInteger(360)},\
+  addDrawFunctionality();
+  addClearFunctionality();
+}
+
+function addDrawFunctionality() {
+  //get all the squares in the grid
+  const squares = document.querySelectorAll("div.square");
+
+  //randomize background color for each square in the nodelist when mouse is hovering
+  squares.forEach((item) => {
+    item.addEventListener("mouseover", (event) => {
+      item.style["background-color"] = `hsl(${randomInteger(360)},\
          ${randomInteger(100)}%,\
          ${randomInteger(100)}%)`;
-        
-        //OPTIONAL: Use RGBA instead of HSL
-        // `rgb(${randomInteger(255)},\
-        //  ${randomInteger(255)},\
-        //  ${randomInteger(255)},\
-        //  ${roundToOneDec(Math.random())})`;
-    })
-});
-
-// Create variable for clear button
-const clearBtn = document.querySelector('#clear-button');
-
-// change background color to white for all squares if clear button is clicked
-clearBtn.addEventListener('click', () => {
-    squares.forEach(item => {
-        item.style['background-color'] = 'white';
-    })
-})
-
-//END OF GENERATING INTIAL GRID SECTION. NOW ONTO RESIZING IT:
-
-//Variable to store grid size
-let gridSize = 0;
-
-//GRID RE_SIZING FUNTIONALITY
-//Pop up for grid size when button clicked - change grid size
-gridResizeBtn.addEventListener('click', () => {
-    gridSize = Number(prompt('Enter your Grid Size (Whole Number from 10 to 100):'));
-    if (gridSize > 100 || gridSize < 10) {
-        alert('Must enter a whole number from 10 to 100');
-    } else if (Number.isInteger(gridSize) == false) {
-        alert('Must enter a whole number from 10 to 100');
-    } else {
-    resizeGrid(gridSize);
-
-    // Get all the squares again since they've been erased
-    const squares = document.querySelectorAll('div.square');
-
-    // Re-add event listener to change color when mouseover
-    squares.forEach(item => {
-        item.addEventListener('mouseover', event => {
-            item.classList.add('color');
-        })
     });
+  });
+}
 
-    //Re-add clear button functionality to each square in the container
-    clearBtn.addEventListener('click', () => {
-        squares.forEach(item => {
-            item.classList.remove('color');
-        })
-    })
+function addResizeFunctionality() {
+  gridResizeBtn.addEventListener("click", () => {
+    resizeGrid();
+  });
+}
 
-    }   
-})
+function addClearFunctionality() {
+  const squares = document.querySelectorAll("div.square");
+  // change background color to white for all squares if clear button is clicked
+  clearBtn.addEventListener("click", () => {
+    squares.forEach((item) => {
+      item.style["background-color"] = "white";
+    });
+  });
+}
 
+function resizeGrid() {
+  let gridSize = Number(
+    prompt("Enter your Grid Size (Whole Number from 10 to 100):")
+  );
+
+  if (gridSize > 100 || gridSize < 10) {
+    alert("Must enter a whole number from 10 to 100");
+  } else if (Number.isInteger(gridSize) == false) {
+    alert("Must enter a whole number from 10 to 100");
+  } else {
+    generateGrid(gridSize);
+  }
+}
+
+function randomInteger(max) {
+  return Math.floor(Math.random() * (max + 1));
+}
 
 function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
-
-function resizeGrid(input) {
-    // input = gridSize;
-    numberOfSquares = input * input;
-
-    sqrWidth = contWidth / input;
-    sqrHeight = contHeight / input;
-
-    removeAllChildNodes(container);
-
-    for (i = 0; i < numberOfSquares; i++) {
-        //generate new div
-        const square = document.createElement('div');
-    
-        //set class of square to '.square'
-        square.setAttribute('class', 'square');
-    
-        //style each div
-        square.setAttribute("style", 
-        "border: solid 1px;\
-        border-color: black;\
-        padding: 0;\
-        margin: 0;\
-        box-sizing: border-box");
-
-        // Can remove following to square.setAttribute above if you want to 
-        // but functionality not yet complete (no outline to conatiner)
-        // border: solid 1px;\
-        // border-color: black;\
-    
-        //set square dimenstions to fill container
-        square.style.width = `${sqrWidth}px`;
-        square.style.height = `${sqrHeight}px`;
-    
-        //append to container
-        container.appendChild(square);
-    
-    }
-
-}
-
-
